@@ -1,0 +1,85 @@
+/* Основной контейнер */
+.login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Поля ввода остаются выровненными слева */
+  padding: 40px;
+  font-family: Arial, sans-serif;
+  position: relative; /* Для позиционирования дочерних элементов */
+}
+
+h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  width: 100%; /* Центрирование заголовка по ширине страницы */
+}
+
+/* Контейнер формы */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Отступ между строками */
+  width: 500px;
+}
+
+/* Поля формы */
+.form-field {
+  display: flex;
+  align-items: center; /* Лейблы и поля выровнены по вертикали */
+  gap: 20px; /* Отступ между лейблом и полем ввода */
+}
+
+label {
+  width: 150px; /* Фиксированная ширина лейблов */
+  text-align: left;
+  font-weight: bold;
+}
+
+mat-form-field {
+  flex: 1; /* Поле ввода занимает оставшееся пространство */
+  width: auto;
+}
+
+/* Центрирование кнопок */
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Центрирование кнопок по центру экрана */
+  width: 100%;
+  margin-top: 40px; /* Отступ сверху */
+}
+
+.submit-button {
+  background-color: #3e2723;
+  color: white;
+  border: none;
+  border-radius: 25px; /* Скругление краев */
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 10px; /* Отступ между кнопками */
+  transition: background-color 0.3s; /* Плавный переход цвета при наведении */
+}
+
+.submit-button:hover {
+  background-color: #5d4037; /* Изменение цвета при наведении */
+}
+
+.submit-button:disabled {
+  background-color: #bcbcbc;
+  cursor: not-allowed;
+}
+
+
+.back-button {
+  background: none;
+  border: none;
+  color: #5d4037;
+  font-size: 16px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  color: #5d4037;
+}

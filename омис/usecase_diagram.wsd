@@ -1,0 +1,33 @@
+@startuml Parcel tracking System Use Cases
+title Система автоматизации учета и отслеживания посылок в логистических компаниях
+left to right direction
+
+actor "Пользователь" as Client
+actor "Оператор" as Operator
+
+package "Раздел добавления посылки в учет" {
+    usecase "Добавить описание" as CreateDescription
+    usecase "Установить начальный статус" as InstallStatus
+    usecase "Добавить посылку в учет" as AddParcel
+}
+
+
+package "Раздел поиска посылки" {
+  usecase "Поиск посылки по трек-индексу" as FindParcel
+}
+
+package "Раздел изменения статуса посылки" {
+  usecase "Изменить статус посылки" as ChangeStatus
+}
+
+Client <|-- Operator
+
+Client -- FindParcel
+
+Operator -- CreateDescription
+Operator -- InstallStatus
+Operator -- AddParcel
+Operator -- FindParcel
+Operator -- ChangeStatus
+
+@enduml

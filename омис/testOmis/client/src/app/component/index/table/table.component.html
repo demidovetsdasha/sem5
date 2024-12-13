@@ -1,0 +1,23 @@
+<table class="table-container">
+  <thead class="form-container">
+  <!-- Заголовки столбцов -->
+  <td class="table-cell">Name</td>
+  <td class="table-cell">Category</td>
+  <td class="table-cell">Start time</td>
+  <td class="table-cell">End time</td>
+  <td class="table-cell">Author</td>
+  <td class="table-cell">More..</td>
+  </thead>
+  <tbody>
+  <tr *ngFor="let event of events" class="list-container">
+    <td class="table-cell">{{event.name}}</td>
+    <td class="table-cell">{{event.category}}</td>
+    <td class="table-cell">{{event.start}}</td>
+    <td class="table-cell">{{event.finish}}</td>
+    <td class="table-cell">{{event.author}}</td>
+    <td class="image-cell">
+      <img [src]="'assets/imgs/chevron.png'" (click)="navigateToDetails(event.id)" class="package-image">
+    </td>
+  </tr>
+  </tbody>
+</table>

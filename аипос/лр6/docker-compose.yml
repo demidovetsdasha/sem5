@@ -1,0 +1,38 @@
+version: '3.9'
+services:
+  flask:
+    build: ./backend
+    container_name: backend-flask
+    environment:
+      - FLASK_ENV=development
+      - PYTHONUNBUFFERED=True
+      - DB_HOST=mysql  # Имя сервиса базы данных
+      - DB_PORT=3306   # Порт MySQL
+      - DB_USER=Dash   # Пользователь базы данных
+      - DB_PASSWORD=12345678
+      - DB_NAME=mydb   # Имя базы данных
+    restart: on-failure
+    volumes:
+      - ./backend:/backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mysql  # Указывает, что MySQL должен запуститься перед Flask
+    command: python app.py
+
+  mysql:
+    image: mysql:8.0  # Используем образ MySQL 8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678  # Устанавливаем пароль для root
+      MYSQL_DATABASE: mydb          # Создаем базу данных `mydb`
+      MYSQL_USER: Dash         # Создаем пользователя `flaskuser`
+      MYSQL_PASSWORD: 12345678     # Устанавливаем пароль для пользователя
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data: # Создаем отдельный volume для хранения данных MySQL

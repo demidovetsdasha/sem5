@@ -1,0 +1,32 @@
+@startuml dev2
+
+class Parcel {
+    -track : String
+    -status : String
+    -sender : String
+    -getter : String
+    -date : String
+    +change_status(new_status : String) : void
+    +change_date(new_date : String) : void
+    +notify_delay() : void
+    +get_change_options() : List<ChangeOption>
+}
+
+class NotificationService {
+    +sendNotification(user : Account, message : String) : void
+}
+
+class ChangeOption {
+    -description : String
+    -alternativeAddress : String
+    -newDeliveryTime : String
+    +getDescription() : String
+    +getAlternativeAddress() : String
+    +getNewDeliveryTime() : String
+}
+
+Parcel ..> NotificationService: updates information
+NotificationService --> Account: notifies user about new options
+Parcel <.. ChangeOption: gives new options
+
+@enduml

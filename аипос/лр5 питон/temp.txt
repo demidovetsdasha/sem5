@@ -1,0 +1,8 @@
+Host: localhost
+
+Content-Length: 92
+
+
+
+This is the data from a template file.
+It could be a large body content for a POST request.

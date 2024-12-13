@@ -1,0 +1,36 @@
+<h2 class="table-title">Данные мероприятия</h2>
+
+<package-table [id]="id"></package-table>
+
+<div class="package-container">
+  <img [src]="'assets/imgs/trash.png'" class="package-image" (click)="delete(intId)">
+</div>
+
+<div style="height: 35px;"></div>
+
+<div class="package-container">
+  <img [src]="'assets/imgs/settings.png'" class="package-set-image" (click)="editEvent(intId)">
+</div>
+
+<div style="height: 45px;"></div>
+
+<div class="package-container">
+  <img [src]="'assets/imgs/add.png'" class="package-add-image" (click)="triggerFileInput(fileInput)">
+  <!-- Скрытое поле ввода -->
+  <input type="file" #fileInput (change)="onFileSelected($event)" accept=".jpg, .jpeg, image/jpeg" style="display: none;"/>
+</div>
+
+<div style="height: 40px;"></div>
+
+<div *ngIf="fileExist" class="package-container">
+  <img [src]="'assets/imgs/analytic-server.png'" class="package-ana-image" (click)="getFile(intId)">
+</div>
+
+<div>
+  <button style="width: 40%; margin-right: 10%" (click)="router.navigate(['index'])" class="submit-button">
+    Back
+  </button>
+</div>
+
+
+

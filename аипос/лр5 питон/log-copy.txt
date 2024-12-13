@@ -1,0 +1,17 @@
+2024-12-03 13:17:41,850 - Serving HTTP on port 8080 from directory D:\Мои проекты\сем5\aiponos\лр5 питон
+2024-12-03 13:28:32,730 - GET /img.jpg - HTTP/1.1 200 OK
+2024-12-03 13:29:58,907 - GET /img.jpg - HTTP/1.1 200 OK
+2024-12-03 13:31:23,716 - POST /upload.txt - 201 Created
+2024-12-03 13:32:22,391 - POST /temp.txt - 201 Created
+2024-12-03 13:32:50,096 - GET /index.html - HTTP/1.1 404 Not Found
+2024-12-03 13:43:04,240 - Serving HTTP on port 8080 from directory D:\Мои проекты\сем5\aiponos\лр5 питон
+2024-12-03 13:43:15,069 - GET /not_exist.html - HTTP/1.1 404 Not Found
+2024-12-03 13:43:58,112 - PUT /img.jpg - 405 Method Not Allowed
+2024-12-03 13:44:56,972 - OPTIONS /img.jpg - 204 No Content
+2024-12-03 13:58:03,644 - GET /img.jpg - HTTP/1.1 200 OK
+2024-12-03 14:02:33,483 - Serving HTTP on port 8080 from directory D:\Мои проекты\сем5\aiponos\лр5 питон
+2024-12-03 14:04:10,103 - Serving HTTP on port 8080 from directory D:\Мои проекты\сем5\aiponos\лр5 питон
+2024-12-03 14:10:29,660 - Serving HTTP on port 8080 from directory D:\Мои проекты\сем5\aipoos\лр5 питон
+2024-12-03 14:19:39,146 - Serving HTTP on port 8080 from directory D:\Мои проекты\сем5\aipoos\лр5 питон
+2024-12-03 22:36:55,615 - Serving HTTP on port 8080 from directory D:\Мои проекты\сем5\aipoos\лр5 питон
+2024-12-03 22:43:35,327 - Serving HTTP on port 8080 from directory D:\Мои проекты\сем5\aipoos\лр5 питон

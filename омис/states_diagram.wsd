@@ -1,0 +1,29 @@
+@startuml states
+
+[*] --> UserParcelInputView 
+UserParcelInputView : do / input Track
+UserParcelInputView : do / log in as Operator
+
+UserParcelInputView -> UserParcelView : Track button pressed
+UserParcelView : entry / show parcel information
+UserParcelView --> [*]
+
+UserParcelInputView -> LoginView : Log in as Operator button pressed
+LoginView : do / log in
+
+LoginView -> OperatorParcelInputView : Log in complited
+OperatorParcelInputView --> OperatorParcelView : Edit parcel info button pressed
+OperatorParcelInputView --> UserParcelView : Track button pressed
+OperatorParcelView --> [*]
+OperatorParcelInputView : do / find parcel
+OperatorParcelInputView : do / edit parcel
+OperatorParcelInputView : do / create new parcel
+
+
+OperatorParcelView : do / edit parcel information
+
+OperatorParcelInputView -> ParcelCreatorView : Create parcel button pressed
+ParcelCreatorView --> [*]
+ParcelCreatorView : do / create parcel
+
+@enduml

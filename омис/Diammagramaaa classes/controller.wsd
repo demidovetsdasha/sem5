@@ -1,0 +1,66 @@
+@startuml controller
+
+class AccountLoginController {
+    -loginView : LoginView
+    -account_storage: AccountStorage
+    -current_session: CurrentSession
+    -factory: AccountFactory
+    -data_saver: DataSaver
+    -login() : void
+    -sign_in() : void
+}
+
+class ParcelTrackInputController {
+    -parcel_input_view: ParcelInputView
+    -parcel_storage: ParcelStorage
+    -data_saver: DataSaver
+    -current_session: CurrentSession
+    -find() : void
+}
+
+
+class UserParcelViewController {
+    -parcel: Parcel
+    -parcel_view: UserParcelView
+    -show() : void
+}
+
+class OperatorParcelViewController{
+    -parcel_storage: ParcelStorage
+    -data_saver: DataSaver
+    -edit_info(): void
+    -delete() : void
+}
+
+UserParcelViewController <|-- OperatorParcelViewController
+
+class ParcelCreatorController{
+    -parcel_creator_view: ParcelCreatorView
+    -parcel_storage: ParcelStorage
+    -data_saver: DataSaver
+    -parcel_factory: ParcelFactory
+    -create_parcel(): void
+}
+
+
+AccountLoginController --* AccountFactory
+AccountLoginController ..> AccountStorage: checks data
+AccountLoginController ..> CurrentSession: starts 
+AccountLoginController <.. LoginView: login/sign in
+
+UserParcelViewController ..> ParcelStorage: get data
+UserParcelViewController ..> UserParcelView: shows data
+OperatorParcelViewController ..> ParcelStorage: edits data
+
+ParcelCreatorController --* ParcelFactory
+ParcelCreatorController <.. ParcelCreatorView: request to create parcel
+ParcelCreatorController ..> ParcelStorage: adds parcel
+
+ParcelTrackInputController --o CurrentSession
+ParcelTrackInputController ..> ParcelStorage: search for parcel
+ParcelTrackInputController <.. ParcelInputView: input track
+
+ParcelTrackInputController ..> UserParcelViewController: view info
+ParcelTrackInputController ..> OperatorParcelViewController: get access to data
+
+@enduml

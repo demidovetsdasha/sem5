@@ -1,0 +1,35 @@
+<div class = 'login-page'>
+
+  <form [formGroup]="loginForm" class="form-container">
+    <div>
+      <H2>Login</H2>
+    </div>
+    <div class="justify-content-center">
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="username">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password">
+        </mat-form-field>
+      </div>
+
+      <div id="controls">
+        <button [disabled]="loginForm.invalid" (click)="submit()" class="submit-button">
+          Login
+        </button>
+
+      </div>
+
+      <div class="link">
+        <a routerLink="/register">Register</a>
+      </div>
+    </div>
+
+  </form>
+</div>

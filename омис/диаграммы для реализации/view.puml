@@ -1,0 +1,91 @@
+@startuml view
+
+class Application<<main>>{
+    - applicationContext: ApplicationContext
+    + main(args: String[])
+}
+
+class ApplicationContext<<injector>>{
+    +loadBeans()
+    +initializeDispatcherServlet()
+}
+
+class DispatcherServlet<<singleton>> {
+    +doDispatch(HttpServletRequest, HttpServletResponse)
+    +getHandler(HttpServletRequest): HandlerExecutionChain
+    +getHandlerAdapter(Object): HandlerAdapter
+    +render(ModelAndView, HttpServletRequest, HttpServletResponse)
+}
+
+class HandlerMapping {
+    +getHandler(req: HttpServletRequest): HandlerExecutionChain
+}
+
+class HandlerExecutionChain {
+    -Handler handler
+    -List<HandlerInterceptor> interceptors
+}
+
+class HandlerAdapter {
+    +handle(HttpServletRequest, HttpServletResponse, Object handler): ModelAndView
+}
+
+class Controller {
+    +handleRequest(HttpServletRequest, HttpServletResponse): ModelAndView
+}
+
+class ModelAndView {
+    -String viewName
+    -Map<String, Object> model
+}
+
+interface ViewResolver<<UI>> {
+    +resolveViewName(String viewName, Locale locale): View
+}
+
+class View {
+    +render(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response)
+}
+
+Application --> ApplicationContext : starts
+ApplicationContext --> DispatcherServlet : initializes
+DispatcherServlet --> HandlerMapping : uses
+DispatcherServlet --> HandlerAdapter : uses
+HandlerMapping --> HandlerExecutionChain : returns
+HandlerExecutionChain --> Controller : contains handler
+HandlerAdapter --> Controller : calls handleRequest
+Controller --> ModelAndView : returns
+DispatcherServlet --> ViewResolver : calls
+ViewResolver --> View : resolves
+View --> ModelAndView : renders response
+
+class InternalResourceViewResolver {
+    + resolveViewName(viewName: String, locale: Locale): View
+}
+
+class UrlBasedViewResolver {
+    + resolveViewName(viewName: String, locale: Locale): View
+}
+
+class FreeMarkerViewResolver {
+    + resolveViewName(viewName: String, locale: Locale): View
+}
+
+class BeanNameViewResolver {
+    + resolveViewName(viewName: String, locale: Locale): View
+}
+
+abstract class AbstractCachingViewResolver {
+    + resolveViewName(viewName: String, locale: Locale)
+}
+
+AbstractCachingViewResolver ..|> ViewResolver
+
+InternalResourceViewResolver --|> AbstractCachingViewResolver
+BeanNameViewResolver --|> AbstractCachingViewResolver
+FreeMarkerViewResolver --|> AbstractCachingViewResolver
+UrlBasedViewResolver --|> AbstractCachingViewResolver
+
+
+
+@enduml

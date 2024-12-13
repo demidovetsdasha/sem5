@@ -1,0 +1,351 @@
+@startuml model
+
+class Application<<singleton>> {
+    - context: ApplicationContext
+    + service(req: HttpServletRequest, resp: HttpServletResponse): void
+}
+
+class SecurityConfiguration {
+    - daoAuthenticationProvider: DaoAuthenticationProvider
+    + configure(HttpSecurity http): void
+}
+
+interface UserDetails
+User ..|> UserDetails
+
+class UserServiceImpl {
+    - userRepository: UserRepository
+    + createNewUser(userCreateEditDto): Boolean
+    + getUserById(id: Integer): UserReadDto
+    + getUserByEmail(email: String): UserReadDto
+    + deleteUserById(id: Integer): Boolean
+    + updateUserById(id: Integer): Boolean
+    + getUsersByName(name: String): List<UserReadDto>
+}
+
+UserServiceImpl ..|> UserService
+UserServiceImpl o-- UserRepository
+Application "1"..>"1" UserServiceImpl: create
+
+
+class UserReadDto{
+   - id: Integer
+   - name: String
+   - List<EventReadDto> events
+}
+
+class UserCreateEditDto {
+    - name: String
+    - password: String
+}
+
+UserServiceImpl ..> UserCreateEditDto
+UserServiceImpl ..> UserReadDto
+
+interface UserService {
+    + createNewUser(userCreateEditDto): Boolean
+    + getUserById(id: Integer): UserReadDto
+    + getUserByEmail(email: String): UserReadDto
+    + deleteUserById(id: Integer): Boolean
+    + updateUserById(id: Integer): Boolean
+    + getUsersByName(name: String): List<UserReadDto>
+}
+
+Application ..> EventHistoryServiceImpl: create
+Application ..> EventServiceImpl: create
+Application ..> EventRepository: create
+Application ..> UserRepository: create
+Application ..> UserServiceImpl: create
+Application ..> FilesRepository: create
+Application ..> EventHistoryRepository: create
+Application ..> SecurityConfiguration: create
+Application ..> NotificationServiceImpl: create
+Application ..> NotificationRepository
+Application ..> AnalyticsServiceImpl: create
+
+EventRepository ..> Event
+EventHistoryRepository ..> History
+FilesRepository ..> File
+MinioClient ..> File
+UserRepository ..> User
+
+interface NotificationRepository {
+    +saveNewEmailMessage(email: String, message: Notification)
+    +saveNewSMSMessage(phoneNumber: String, message: Notification)
+    +getNewNotification(userId: Long): Notification
+}
+
+NotificationRepository ..> Notification
+NotificationService <|.. NotificationServiceImpl
+NotificationServiceImpl o-- NotificationRepository
+
+class Notification {
+    -id: Integer
+    -type: String
+    -message: String
+    -date: Timestamp
+}
+
+class NotificationServiceImpl {
+    -notificationRepository: NotificationRepository
+    +createNewEmailMessage(email: String, message: Notification)
+    +createNewSMSMessage(phoneNumber: String, message: Notification)
+    +getNewNotification(userId: Long): NotificationReadDto
+}
+
+class NotificationReadDto{
+    -id: Integer
+    -type: String
+    -message: String
+    -date: LocalDateTime
+}
+
+NotificationService ..> NotificationReadDto
+
+interface NotificationService {
+    +createNewEmailMessage(email: String, message: Notification)
+    +createNewSMSMessage(phoneNumber: String, message: Notification)
+    +getNewNotification(userId: Long): NotificationReadDto
+}
+
+class User {
+  - id: Integer
+  - fullName: String
+  - email: String
+  - password: String
+  - personalPhoto: byte[]
+  - telephoneNumber: String
+}
+
+
+class Event {
+    -id: Long
+    -eventName: String
+    -category: Category
+    -List<History> history
+}
+
+Event -->"1" Category: event category
+Event ..>"N" History: event history
+
+enum Category{
+    EDUCATIONAL
+    SPORT
+    FUNNY
+    FASHION
+}
+
+class History {
+    -id: Long
+    -event: Event
+    -type: HistoryType
+    -file: File
+    -author: User
+    -startTime: Time
+    -endTime: Time
+}
+
+History -->"1" HistoryType: history type
+History ..>"1" File: edited file
+History ..>"1" User: author
+
+
+enum HistoryType {
+    EDIT
+    DELETE
+    ADD
+    APPLY
+}
+
+class File {
+    - type: FileType
+    - event: Event
+    - name: String
+    - body: byte[]
+}
+
+
+File -->"1" FileType: type of file
+
+enum FileType{
+    VIDEO
+    AUDIO
+}
+
+
+
+EventService <|.. EventServiceImpl
+FilesService <|.. FilesServiceImpl
+
+
+
+class EventServiceImpl {
+    - eventRepository: EventRepository
+    - filesService: FilesService
+    + getEventById(id: Long): EventReadDto
+    + deleteEventById(id: Long): String
+    + updateEventById(id: Long, eventCreateEditDto: EventCreateEditDto): EventReadDto
+    + createNewEvent(video: File, name: String): EventReadDto
+    + createNewEvent(name: String): EventReadDto
+    + getEventsByName(name: String): List<EventReadDto>
+    + getUsersByName(name: String): List<UserReadDto>
+}
+
+EventServiceImpl ..> EventCreateEditDto
+EventServiceImpl ..> EventReadDto
+
+class EventCreateEditDto{
+    -id: Long
+    -eventName: String
+    -category: String
+}
+
+class EventReadDto{
+    -id: Long
+    -eventName: String
+    -category: String
+    -List<EventHistoryReadDto> history
+}
+
+interface EventService {
+    + getEventById(id: Long): EventReadDto
+    + deleteEventById(id: Long): String
+    + updateEventById(id: Long): EventReadDto
+    + createNewEvent(video: File, name: String): EventReadDto
+    + createNewEvent(name: String): EventReadDto
+    + getEventsByName(name: String): List<EventReadDto>
+
+}
+
+EventServiceImpl o-- EventRepository
+EventServiceImpl o-- FilesService
+
+
+
+
+class EventHistoryServiceImpl {
+    - eventHistoryRepository: EventHistoryRepository
+    + getEventHistoryById(id: Long): EventHistoryReadDto
+    + addEventHistory(id: Long, EventHistoryCreateEdit): EventHistoryCreateEditDto
+}
+
+interface EventHistoryService {
+    + getEventHistoryById(id: Long): EventHistoryReadDto
+    + addEventHistory(id: Long, EventHistoryCreateEdit): EventHistoryCreateEditDto
+}
+
+EventHistoryService <|.. EventHistoryServiceImpl
+
+class EventHistoryReadDto {
+    -eventId: Long
+    -type: String
+    -fileName: String
+    -filter: String
+    -startTime: String
+    -endTime: String
+}
+
+EventHistoryService o-- EventHistoryRepository
+EventHistoryServiceImpl ..> EventHistoryCreateEditDto
+EventHistoryServiceImpl ..> EventHistoryReadDto
+
+
+class EventHistoryCreateEditDto{
+    -eventId: Long
+    -type: String
+    -file: MultipartFile
+    -filter: FilterType
+    -startTime: String
+    -endTime: String
+}
+
+class EventHistoryCreateEditDto{
+    -eventName: String
+    -type: String
+    -file: MultipartFile
+    -filter: String
+    -startTime: Time
+    -endTime: Time
+}
+
+class FilesServiceImpl {
+    -filesStorageClient: FilesStorageClient
+    -filesRepository: FilesRepository
+    +addFile(file: File): Boolean
+    +getFile(fileName: String): File
+    +deleteFile(fileName: String): Boolean
+}
+
+FilesServiceImpl o-- MinioClient
+FilesServiceImpl o-- FilesRepository
+
+interface AnalyticsService{
+    +getAnalytics(eventId: Long): MultipartFile
+}
+
+class AnalyticsServiceImpl{
+    -eventRepository: EventRepository
+    +getAnalytics(eventId: Long): MultipartFile
+}
+
+AnalyticsService <|.. AnalyticsServiceImpl
+AnalyticsServiceImpl o-- EventRepository
+
+
+
+interface UserRepository{
+    + getById(id: Integer): User
+    + getByEmail(email: String): User
+    + updateById(id: Integer): Boolean
+    + deleteById(id: Integer): Boolean
+    + getUsersByName(name: String): List<User>
+}
+
+interface EventHistoryRepository {
+    + addHistoryToEvent(eventHistory: History, event: Event): Boolean
+    + getHistoryByEvent(event: Event): List<History>
+}
+
+interface EventRepository {
+    + getEventById(id: Long): Event
+    + deleteEventById(id: Long): Event
+    + updateEventById(event: Event, id: eventId): Boolean
+    + saveEvent(event: Event): void
+    + getEventsByName(name: String): List<Event>
+}
+
+interface FilesRepository {
+    + addFile(file: File): Boolean
+    + getFileByEvent(project: Project): File
+}
+
+interface JpaRepository
+
+UserRepository --|> JpaRepository
+FilesRepository --|> JpaRepository
+EventRepository --|> JpaRepository
+EventHistoryRepository --|> JpaRepository
+
+
+interface FilesService {
+    +addFile(file: File): Boolean
+    +getFile(fileName: String): File
+    +deleteFile(fileName: String): Boolean
+}
+
+interface FilesStorageClient {
+    + saveFile(file: File): Boolean
+    + getFileByFileName(fileName: String): File
+    + deleteFileByFileName(fileName: String): Boolean
+}
+
+class MinioClient {
+    + saveFile(file: File): Boolean
+    + getFileByFileName(fileName: String): File
+    + deleteFileByFileName(fileName: String): Boolean
+}
+
+FilesStorageClient <|.. MinioClient
+
+
+@enduml

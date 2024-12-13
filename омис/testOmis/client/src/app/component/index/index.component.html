@@ -1,0 +1,24 @@
+<div style="height: 100px; width: 70%"></div>
+
+<table class="main-table">
+  <thead>
+  <td class="table-cell">
+    <img [src]="'assets/imgs/arrow-right (1).png'" class="arrow-image" (click)="openPastIndex()">
+  </td>
+  <td class="table-cell">
+    <h2 class="table-title">Future events</h2>
+  </td>
+  <td class="table-cell">
+    <img [src]="'assets/imgs/arrow-right.png'" class="arrow-image" (click)="openPastIndex()">
+  </td>
+  </thead>
+</table>
+
+
+<hr style="width: 70%">
+<div class="package-container">
+  <img [src]="'assets/imgs/plus.png'" class="package-image" (click)="addEvent()">
+</div>
+<all-packages-table></all-packages-table>
+
+

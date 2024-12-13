@@ -1,0 +1,35 @@
+@startuml dev3
+
+class Transport {
+    -transportId : String
+    -currentLocation : GPSLocation
+    -currentLoad : int
+    +updateLocation(newLocation : GPSLocation) : void
+    +getLoad() : int
+}
+
+class GPSLocation {
+    -latitude : double
+    -longitude : double
+    +getLatitude() : double
+    +getLongitude() : double
+}
+
+class LoadAnalyzer {
+    +analyzeLoad(vehicles : List<Transport>) : List<Transport>
+}
+
+class TransportManager {
+    -transport : List<Transport>
+    +reallocate_parcels(parcel_storage : ParcelStorage) : void
+    +get_optimal_transport(parcel : Parcel) : Transport
+}
+
+
+TransportManager "1" ..> "many" Transport: update vehicles
+TransportManager ..> ParcelStorage: change transport for parcels
+Transport *-- GPSLocation
+TransportManager --> LoadAnalyzer: manage vehicles
+LoadAnalyzer ..> Transport: checks load
+
+@enduml

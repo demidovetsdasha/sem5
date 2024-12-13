@@ -1,0 +1,43 @@
+@startuml view
+
+class Application {
+    +run() : void
+}
+
+Application --> ViewsFactory: initiates
+
+class ViewsFactory {
+    +create_parcel_input_view() : ParcelInputView
+    +create_parcel_view() : UserParcelView
+    +create_login_view() : LoginView
+    +create_parcel_creator_view() : ParcelCreatorView
+}
+
+class ParcelInputView {
+
+}
+
+class UserParcelView {
++show_info(): void
+}
+
+class LoginView {
++try_login(): void
++try_sign_in(): void
+}
+
+class ParcelCreatorView {
++show_result(): void
+}
+
+class OperatorParcelView {
+
+}
+
+UserParcelView <|-- OperatorParcelView
+ViewsFactory "1" ..> "1" ParcelInputView : creates
+ViewsFactory "1" ..> "1" LoginView : creates
+ViewsFactory "1" ..> "1" ParcelCreatorView : creates
+ViewsFactory "1" ..> "1" UserParcelView : creates
+
+@enduml

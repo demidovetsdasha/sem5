@@ -1,0 +1,50 @@
+@startuml dev1
+
+class SupplyChainMonitor {
+    +analyze() : Prediction
+    +getRecommendations() : List<String>
+}
+
+class DataAnalyzer {
+    +analyzeDelays(data : HistoricalData) : Prediction
+    +analyzeWeather(weatherData : WeatherService) : Prediction
+    +analyzeStorage(storageData : StorageData) : Prediction
+}
+
+class Prediction {
+    +risks : List<String>
+    +recommendations : List<String>
+    +addRisk(risk : String) : void
+    +addRecommendation(recommendation : String) : void
+}
+
+class WeatherService {
+    +getWeatherForecast(location : String) : WeatherData
+}
+
+class StorageData {
+    +location : String
+    +currentLoad : int
+    +maxCapacity : int
+}
+
+class HistoricalData {
+    +getDelays() : List<DelayRecord>
+    +getFailures() : List<FailureRecord>
+}
+
+class RecommendationEngine {
+    +generateAlternatives(risks : List<String>) : List<String>
+}
+
+
+SupplyChainMonitor <.. ParcelStorage : parcel monitoring
+SupplyChainMonitor --> DataAnalyzer : initiates data analysis
+DataAnalyzer --> HistoricalData : uses
+DataAnalyzer --> WeatherService : uses
+DataAnalyzer --> StorageData : uses
+DataAnalyzer "1" ..> "many" Prediction : creates
+SupplyChainMonitor --> RecommendationEngine : generate recommendations
+RecommendationEngine "1" ..> "many" Prediction : adds recommendations
+
+@enduml

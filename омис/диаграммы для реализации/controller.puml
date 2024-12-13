@@ -1,0 +1,92 @@
+@startuml controller
+
+class Application<<main>> {
+    - context: ApplicationContext
+    + main(args: String[]): void
+}
+
+Application --> ApplicationContext : starts
+ApplicationContext --> DispatcherServlet : initializes
+
+class ApplicationContext<<injector>>{
+}
+
+class DispatcherServlet<<singleton>> {
+    +doDispatch(HttpServletRequest, HttpServletResponse)
+}
+
+DispatcherServlet "1"..>"1" HttpServletRequest
+DispatcherServlet "1"..>"1" HttpServletResponse
+
+DispatcherServlet "1"..>"1" UserController: calls
+DispatcherServlet "1"..>"1" EventController: calls
+DispatcherServlet "1"..>"1" AnalyticsController: calls
+DispatcherServlet "1"..>"1" NotificationController: calls
+
+
+class UserController <<controller>> {
+    - userService: UserService
+    + registerNewUser(user: UserCreateEditDto): String
+    + login(email: String, password: String): String
+    + deleteUserById(id: Integer): String
+    + getUserById(id: Integer): UserReadDto
+    + editUserById(id: Integer, user: UserCreateEditDto): UserReadDto
+}
+
+class EventController <<controller>> {
+    - eventService: EventService
+    - filesService: FilesService
+    + getEventById(id: Long): EventReadDto
+    + getUserEvents(): List<EventReadDto>
+    + createNewEvent(eventCreateEditDto: EventCreateEditDto): EventReadDto
+    + createNewEmptyEvent(name: String): EventReadDto
+    + editEvent(eventId: Long, eventCreateEditDto: eventCreateEditDto): EventReadDto
+    + deleteEventById(id: Long): String
+    + addFileToEvent(multipartFile: MultipartFile): String
+}
+
+
+
+class AnalyticsController <<controller>> {
+    -analyticsService: AnalyticsService
+    +getEventAnalyticsById(eventId: long): MultipartFile
+}
+
+class NotificationController <<controller>> {
+    -notificationService: NotificationService
+    +getNewNotifications(userId: UserId): NotificationReadDto
+}
+
+
+
+
+
+
+
+
+
+UserController "1"..>"1" SecurityConfiguration: runs after
+UserController "1"..>"1" UserCreateEditDto
+UserController "1"..>"1" UserReadDto
+UserController o-- UserService
+
+EventController "1"..>"1" EventReadDto
+EventController "1"..>"1" EventCreateEditDto
+
+EventController "1"..>"1" SecurityConfiguration: runs after
+EventController o-- EventService
+EventController o-- EventHistoryService
+EventController "1"..>"1" MultipartFile
+
+NotificationController o-- NotificationService
+
+AnalyticsController o-- AnalyticsService
+
+
+interface EventService{}
+interface EventHistoryService{}
+interface AnalyticsService{}
+interface NotificationService{}
+interface UserService{}
+
+@enduml

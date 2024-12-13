@@ -1,0 +1,32 @@
+cd D:\Мои проекты\сем5\aipoos\лр5 питон
+
+1. Сначчала запуск сервера
+python server.py -p 8080
+
+2. В отдельном терминале запуск клиента
+
+тестируем GET-запрос, просим изображение
+python client.py -u "http://localhost:8080/img.png" -m "GET"
+
+тестируем POST-запрос, чтобы создать новый файл на сервере
+python client.py -u "http://localhost:8080/upload.txt" -m "POST" --data "This is a test content"
+
+
+проверим работу OPTIONS-запроса
+python client.py -u "http://localhost:8080/img.png" -m "OPTIONS"
+
+
+отправляем запрос с использованием шаблона из файла
+python client.py -u "http://localhost:8080/temp.txt" -m "POST" --template "temp.txt"
+
+3. ошибки
+
+запросим несуществующий файл
+python client.py -u "http://localhost:8080/not_exist.html" -m "GET"
+
+используем не определенный метод
+python client.py -u "http://localhost:8080/img.jpg" -m "PUT"
+
+4. для проверки работы в ьраузере
+http://localhost:8080/temp.txt
+http://localhost:8080/img.png

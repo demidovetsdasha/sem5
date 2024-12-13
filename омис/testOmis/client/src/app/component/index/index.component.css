@@ -1,0 +1,33 @@
+.table-title {
+  color: black;
+  font-size: 30px;
+  text-align: center;
+  width: 100%;
+}
+
+.main-table {
+  margin: 0 auto 1rem; /* Центровка и нижний отступ */
+  width: 60%; /* Таблица растянется на всю ширину страницы */
+  border-collapse: collapse;
+}
+
+.arrow-image {
+  width: 15px;
+  height: auto;
+  margin-right: 3%;
+}
+
+.package-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.package-image {
+  width: 50px;
+  height: auto;
+  margin-right: 3%;
+}
+
+.package-image:hover{
+  cursor: pointer;
+}

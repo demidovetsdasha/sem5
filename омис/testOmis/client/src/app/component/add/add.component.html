@@ -1,0 +1,59 @@
+<div class="login-page">
+  <h2>Add Event</h2>
+  <form [formGroup]="addingForm" class="form-container">
+    <!-- Поле Name -->
+    <div class="form-field">
+      <label for="name">Name</label>
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input id="name" matInput formControlName="name" placeholder="Enter event name">
+      </mat-form-field>
+    </div>
+
+    <!-- Поле Category -->
+    <div class="form-field">
+      <label for="category">Category</label>
+      <mat-form-field appearance="outline">
+        <mat-label>Category</mat-label>
+        <input id="category" matInput formControlName="category" placeholder="Enter category">
+      </mat-form-field>
+    </div>
+
+    <!-- Поле Start Time -->
+    <div class="form-field">
+      <label for="start">Start Time</label>
+      <mat-form-field appearance="outline">
+        <mat-label>Start Time</mat-label>
+        <input id="start" matInput formControlName="start" placeholder="Enter start time">
+      </mat-form-field>
+    </div>
+
+    <!-- Поле End Time -->
+    <div class="form-field">
+      <label for="finish">End Time</label>
+      <mat-form-field appearance="outline">
+        <mat-label>End Time</mat-label>
+        <input id="finish" matInput formControlName="finish" placeholder="Enter end time">
+      </mat-form-field>
+    </div>
+
+    <!-- Поле Author -->
+    <div class="form-field">
+      <label for="author">Author</label>
+      <mat-form-field appearance="outline">
+        <mat-label>Author</mat-label>
+        <input id="author" matInput formControlName="author" placeholder="Enter author">
+      </mat-form-field>
+    </div>
+  </form>
+
+  <!-- Отдельный контейнер для кнопок -->
+  <div class="buttons-container">
+    <button [disabled]="addingForm.invalid" (click)="submit()" class="submit-button">
+      Create event
+    </button>
+    <button type="button" (click)="router.navigate(['index'])" class="back-button">
+      Back
+    </button>
+  </div>
+</div>

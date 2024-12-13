@@ -1,0 +1,86 @@
+@startuml model
+
+class ParcelIdentifier {
+    -tracks : List<String>
+    +create_track() : String
+    +clean_track(track : String) : void
+}
+
+interface Saveable {
+    +load(data_saver : DataSaver) : void
+    +save(data_saver : DataSaver) : void
+}
+
+class DataSaver {
+    +load(key : String) : Object
+    +save(key : String, data : Object) : void
+}
+
+class Parcel {
+    -track : String
+    -statuses : List<string>
+    -sender : String
+    -getter : String
+    -date : String
+    +get_last_status() : String
+    +change_status(new_status : String) : void
+    +change_date(new_date : String) : void
+}
+
+class ParcelFactory {
+    -parcel_identifier : ParcelIdentifier
+    +create_parcel(sender : String, getter : String) : Parcel
+}
+
+class ParcelStorage {
+    -parcels : Map<String, Parcel>
+    +add(parcel : Parcel) : void
+    +remove(parcel : Parcel): void
+    +find_parcel(track : String) : Parcel
+    +load(data_saver : DataSaver) : void
+    +save(data_saver : DataSaver) : void
+}
+
+Saveable <|.. ParcelStorage
+
+class Account {
+    -login : String
+    -password : String
+    +try_autificate(password : String) : Boolean
+}
+
+class AccountFactory {
+    +create_account(login : String, password : String) : Account
+}
+
+class AccountStorage {
+    -accounts : Map<String, Account>
+    +add(account : Account) : void
+    +find_account(login : String) : Account
+    +load(data_saver : DataSaver) : void
+    +save(data_saver : DataSaver) : void
+}
+
+Saveable <|.. AccountStorage
+
+class CurrentSession {
+    -account : Account
+    +is_authorised() : Boolean
+    +log_in(account : Account) : void
+    +log_out() : void
+}
+
+ParcelFactory *-- ParcelIdentifier 
+ParcelFactory "1" ..> "many" Parcel: creates
+AccountFactory "1" ..> "many" Account: creates
+
+ParcelStorage o-- Parcel: stores data
+AccountStorage o-- Account: stores data
+
+AccountStorage "1"<.."1" CurrentSession: searches account in system
+CurrentSession "1" --> "1" Account: checks data
+
+ParcelStorage ..> DataSaver: saves/loads data
+AccountStorage ..> DataSaver: saves/loads data
+
+@enduml

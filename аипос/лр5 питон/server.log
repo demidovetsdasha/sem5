@@ -1,0 +1,36 @@
+2024-12-03 23:00:02,618 - Serving HTTP on port 8080 from directory D:\Мои проекты\сем5\aipoos\лр5 питон
+2024-12-03 23:00:48,043 - Received request: GET /img.png HTTP/1.1
+2024-12-03 23:00:48,044 - Method: GET, Path: /img.png
+2024-12-03 23:00:48,085 - Sent response: 200 OK, 784828 bytes sent
+2024-12-03 23:00:55,097 - Received request: POST /upload.txt HTTP/1.1
+2024-12-03 23:00:55,098 - Method: POST, Path: /upload.txt
+2024-12-03 23:00:55,098 - POST Data: This is a test content
+2024-12-03 23:00:55,101 - Data saved to file: D:\Мои проекты\сем5\aipoos\лр5 питон\upload.txt, 22 bytes received.
+2024-12-03 23:00:59,642 - Received request: OPTIONS /img.png HTTP/1.1
+2024-12-03 23:00:59,642 - Method: OPTIONS, Path: /img.png
+2024-12-03 23:00:59,654 - Sent OPTIONS response: 204 No Content
+2024-12-03 23:01:25,534 - Received request: GET /not_exist.html HTTP/1.1
+2024-12-03 23:01:25,535 - Method: GET, Path: /not_exist.html
+2024-12-03 23:01:25,535 - File not found: D:\Мои проекты\сем5\aipoos\лр5 питон\not_exist.html
+2024-12-03 23:01:45,562 - Received request: PUT /img.jpg HTTP/1.1
+2024-12-03 23:01:45,563 - Method: PUT, Path: /img.jpg
+2024-12-03 23:01:45,563 - Method not allowed: PUT
+2024-12-03 23:02:01,243 - Received request: GET /img.png HTTP/1.1
+2024-12-03 23:02:01,243 - Method: GET, Path: /img.png
+2024-12-03 23:02:01,245 - Sent response: 200 OK, 784828 bytes sent
+2024-12-03 23:02:14,371 - Received request: GET /temp.txt HTTP/1.1
+2024-12-03 23:02:14,371 - Method: GET, Path: /temp.txt
+2024-12-03 23:02:14,371 - Sent response: 200 OK, 137 bytes sent
+2024-12-03 23:02:28,263 - Received request: GET /upload.txt HTTP/1.1
+2024-12-03 23:02:28,263 - Method: GET, Path: /upload.txt
+2024-12-03 23:02:28,286 - Sent response: 200 OK, 22 bytes sent
+2024-12-04 14:43:55,103 - Serving HTTP on port 8080 from directory D:\Мои проекты\сем5\aipoos\лр5 питон
+2024-12-04 14:47:42,611 - Received request: GET /img.png HTTP/1.1
+2024-12-04 14:47:42,611 - Method: GET, Path: /img.png
+2024-12-04 14:47:42,744 - Sent response: 200 OK, 784828 bytes sent
+2024-12-04 14:48:09,478 - Received request: GET /favicon.ico HTTP/1.1
+2024-12-04 14:48:09,479 - Method: GET, Path: /favicon.ico
+2024-12-04 14:48:09,482 - File not found: D:\Мои проекты\сем5\aipoos\лр5 питон\favicon.ico
+2024-12-04 14:48:21,353 - Received request: GET /img.png HTTP/1.1
+2024-12-04 14:48:21,353 - Method: GET, Path: /img.png
+2024-12-04 14:48:21,363 - Sent response: 200 OK, 784828 bytes sent

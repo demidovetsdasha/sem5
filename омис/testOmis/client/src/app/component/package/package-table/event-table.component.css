@@ -1,0 +1,61 @@
+.package-table {
+  width: 50%;
+  border-collapse: collapse;
+  margin: 0 auto; /* Центрирует таблицу по горизонтали */
+}
+
+.table-container {
+  width: 60%;
+  text-align: center;
+  margin: 0 auto 1rem; /* Центровка и нижний отступ */
+}
+
+.list-container {
+  height: 35px;
+  padding: 5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 35px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 0 auto 1rem; /* Центровка и нижний отступ */
+}
+
+.form-container {
+  height: 35px;
+  padding: 2rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 35px;
+  background: #f0f0f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 0 auto 1rem; /* Центровка и нижний отступ */
+}
+
+
+.package-row {
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+
+.package-row:hover {
+  background-color: #e6e6e6;
+}
+
+.image-cell {
+  width: 70px;
+}
+
+.package-image {
+  width: 50px;
+  height: auto;
+}
+
+.package-table td, .package-table th {
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+.package-table td {
+  text-align: center;
+}
